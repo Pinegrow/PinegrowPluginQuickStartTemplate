@@ -54,16 +54,17 @@ $(function () {
             framework.resources.add(resource);
         });
 
-        var pge_article_box = new PgComponentType('pge-article-box', 'Article Box', {
+        var pge_article_box = new PgComponentType('article-box', 'Article Box', {
             selector: '.pge-article-box',
             tags: 'major',
             code: '<article class="pge-article-box">\
+            <img class="centered" src="" alt="" height="42" width="42">\
             <h3 class="pge-article-title">Title</h3>\
             <p class="pge-article-meta">Written by <a href="#">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>\
             <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\
             </article>',
             sections: {
-                pge_article_options: {
+                pge_checkbox_options: {
                     name: 'Article Options',
                     default_open: true,
                     fields: {
@@ -73,6 +74,12 @@ $(function () {
                             action: 'apply_class',
                             value: 'pge-dropcap'
                         },
+                    }
+                },
+                pge_select_options: {
+                    name: 'Meta options',
+                    fefault_open: true,
+                    fields: {
                         pge_meta_style: {
                             type: 'select',
                             name: 'Select meta style',
@@ -93,9 +100,33 @@ $(function () {
                             ]
                         },
                     }
+                },
+                pge_file_options: {
+                    name: 'Article Picture Options',
+                    default_open: false,
+                    fields: {
+                        pge_picture_options: {
+                            type: 'image',
+                            file_picker: true,
+                            name: 'Article image',
+                            action: 'custom',
+                            value: 1,
+                            get_value: function (pgel) {
+                                return pgel.findOne('img').getAttribute('src'); 
+                            },
+                            set_value: function(pgel, value) {
+                                pgel.findOne('img').setAttribute('src', value);
+                                return;
+                            }
+                        }
+                    }
+                },
+                pge_text_options: {
+                    name: 'Article  
                 }
             }
         });
+        pge_article_box.addPrefix(framework_id);
         framework.addComponentType(pge_article_box);
 
         var pge_article_section = new PgFrameworkLibSection('pgearticle-section', 'Article Elements');
