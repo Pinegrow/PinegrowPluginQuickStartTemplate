@@ -58,7 +58,7 @@ $(function () {
             selector: '.pge-article-box',
             tags: 'major',
             code: '<article class="pge-article-box">\
-            <img class="centered" src="" alt="" height="42" width="42">\
+            <img class="centered" src="' + getPlaceholder() + '" alt="" height="42" width="42">\
             <h3 class="pge-article-title">Title</h3>\
             <p class="pge-article-meta">Written by <a href="#">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>\
             <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\
@@ -102,7 +102,7 @@ $(function () {
                     }
                 },
                 pge_file_options: {
-                    name: 'Article Picture Options',
+                    name: 'Article Image Options',
                     default_open: false,
                     fields: {
                         pge_picture_options: {
@@ -112,17 +112,28 @@ $(function () {
                             action: 'custom',
                             value: 1,
                             get_value: function (pgel) {
-                                return pgel.findOne('img').getAttribute('src'); 
+                                return pgel.findOne('img').getAttribute('src') || null; 
                             },
                             set_value: function(pgel, value) {
                                 pgel.findOne('img').setAttribute('src', value);
                                 return;
                             }
+                        },
+                        pge_alt_options: {
+                            type: 'text',
+                            live_update: false,
+                            name: 'Image alt text',
+                            action: 'custom',
+                            value: 1,
+                            get_value: function (pgel) {
+                                return pgel.findOne('img').getAttribute('alt') || null;
+                            },
+                            set_value: function (pgel, value) {
+                                pgel.findOne('img').setAttribute('alt', value);
+                                return;
+                            }
                         }
                     }
-                },
-                pge_text_options: {
-                    name: 'Article  
                 }
             }
         });
