@@ -2,9 +2,9 @@ $(function () {
             $('body').one('pinegrow-ready', function (e, pinegrow) {
 
                         //Add a framework prefix - if you plan on having multiple versions, this should be the same for each version
-                        let type_prefix = '';
+                        let type_prefix = 'examplePlugin';
                         //Add a framework id, it should be unique to this framework and version
-                        let framework_id = '';
+                        let framework_id = 'pge';
                         //Add a framework name
                         var framework = new PgFramework(framework_id, 'CHANGE_ME');
 
@@ -28,7 +28,7 @@ $(function () {
                         // Tell Pinegrow about the framework
                         pinegrow.addFramework(framework);
 
-                        var pge_article_box = new PgComponentType('pge-article-box', 'Article Box', {
+                        var pge_article_box = new PgComponentType('article-box', 'Article Box', {
                             selector: '.pge-article-box',
                             tags: 'major',
                             code: '<article class="pge-article-box">\
@@ -37,7 +37,7 @@ $(function () {
             <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\
         </article>',
                             sections: {
-                                pge_article_options: {
+                                pge_checkbox_options: {
                                     name: 'Article Options',
                                     default_open: true,
                                     fields: {
@@ -47,6 +47,12 @@ $(function () {
                                             action: 'apply_class',
                                             value: 'pge-dropcap'
                                         },
+                                    }
+                                },
+                                pge_select_options: {
+                                    name: 'Meta options',
+                                    fefault_open: true,
+                                    fields: {
                                         pge_meta_style: {
                                             type: 'select',
                                             name: 'Select meta style',
@@ -67,8 +73,16 @@ $(function () {
                                             ]
                                         },
                                     }
+                                },
+                                pge_file_options: {
+                                    name: 'Article Picture Options',
+                                    default_open: false,
+                                    fields: {
+                                        pge_picture_options: {
+                                            type: 'image'
+                                        }
+                                    }
                                 }
                             }
                         })
                     };
-                    
