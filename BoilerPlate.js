@@ -29,22 +29,30 @@ $(function () {
         pinegrow.addFramework(framework);
 
         //Add our template into the project - change based on plugin structure
-        framework.addTemplateProjectFromResourceFolder('template', null, 100);
+        framework.addTemplateProjectFromResourceFolder('template', null, 500);
+
+        //uncomment the line below for debugging - opens devtools on Pinegrow Launch
+        require('nw.gui').Window.get().showDevTools();
 
         //Path helper
         var toLocalPath = function (p) {
             return p.replace(/\//g, path.sep);
         };
 
+        //Image helper
+        var getPlaceholderImage = function () {
+            return pinegrow.getPlaceholderImage();
+        }
+
         //Project resources
-        var resource_files = [
+        /*var resource_files = [
             'css/uikit.min.css',
             'js/uikit.min.js',
             'js/uikit-icons.min.js'
-        ];
+        ];*/
 
         //Add resource files to project in header or footer depending on type
-        resource_files.forEach(function (resource_file) {
+        /**resource_files.forEach(function (resource_file) {
             var file = framework.getResourceFile('template/resources/' + resource_file);
             var resource = new PgComponentTypeResource(file);
             resource.relative_url = resource_file;
@@ -52,13 +60,13 @@ $(function () {
             resource.footer = resource_file.indexOf('.js') >= 0;
             resource.type = resource_file.indexOf('.js') >= 0 ? 'application/javascript' : 'text/css'
             framework.resources.add(resource);
-        });
+        });*/
 
-        var pge_article_box = new PgComponentType('article-box', 'Article Box', {
+        var pge_article_box = new PgComponentType('pge-article-box', 'Article Box', {
             selector: '.pge-article-box',
             tags: 'major',
             code: '<article class="pge-article-box">\
-            <img class="centered" src="' + getPlaceholder() + '" alt="" height="42" width="42">\
+            <img class="centered" src="' + getPlaceholderImage() + '" alt="" height="42" width="42">\
             <h3 class="pge-article-title">Title</h3>\
             <p class="pge-article-meta">Written by <a href="#">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>\
             <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\
@@ -85,7 +93,7 @@ $(function () {
                             name: 'Select meta style',
                             action: 'apply_class',
                             show_empty: true,
-                            option: [{
+                            options: [{
                                     key: 'pge-meta-grey',
                                     name: 'Greyed'
                                 },
@@ -116,7 +124,7 @@ $(function () {
                             },
                             set_value: function(pgel, value) {
                                 pgel.findOne('img').setAttribute('src', value);
-                                return;
+                                return value;
                             }
                         },
                         pge_alt_options: {
@@ -130,14 +138,14 @@ $(function () {
                             },
                             set_value: function (pgel, value) {
                                 pgel.findOne('img').setAttribute('alt', value);
-                                return;
+                                return value;
                             }
                         }
                     }
                 }
             }
         });
-        pge_article_box.addPrefix(framework_id);
+        //pge_article_box.addPrefix(framework_id);
         framework.addComponentType(pge_article_box);
 
         var pge_article_section = new PgFrameworkLibSection('pgearticle-section', 'Article Elements');
