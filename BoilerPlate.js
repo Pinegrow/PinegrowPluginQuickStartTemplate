@@ -8,8 +8,9 @@ $(function () {
         //Add a framework name
         var framework = new PgFramework(framework_id, 'Pinegrow-Example');
 
-        //Prevent the activation of multiple versions of the plugin - if this should be allowed, change to false
         framework.type = type_prefix;
+
+        //Prevent the activation of multiple versions of the plugin - if this should be allowed, change to false
         framework.allow_single_type = true;
 
         //Optional, add a badge to the framework list notify user of new or updated status
@@ -17,8 +18,10 @@ $(function () {
 
         //Add a description of the plugin
         framework.description = 'A Pinegrow Plugin Boilerplate';
+
         //Add a framework  author to be displayed with the framework templates
         framework.author = 'Pinegrow';
+
         //Add a website "https://pinegrow.com" or mailto "mailto:info@pinegrow.com" link for redirect on author name click
         framework.author_link = 'https://pinegrow.com';
 
@@ -40,7 +43,8 @@ $(function () {
         };
 
         //The code below adds a control to target all text contained within a <p> tag.
-        var pge_paragraph_options = new PgComponentType('pge_paragraph_options', '', {
+        //note that the new component name is pre-fixed, but the id is not
+        var pge_paragraph_options = new PgComponentType('paragraph_options', '', {
             selector: 'p',
             sections: {
                 pge_p_options: {
@@ -57,12 +61,15 @@ $(function () {
                 }
             }
         });
+        
+        //prefixes component id, fields, and sections names
+        pge_paragraph_options.addPrefix(framework_id);
 
-        //pge_paragraph_options.addPrefix(framework_id);
+        //adds component to framework
         framework.addComponentType(pge_paragraph_options);
 
-        //The code below adds an article box component to the "Library" panel. It also adds four controls - a checkbox, a select dropdown, a file picker, and a text box, for that component to the "Properties" panel. 
-        var pge_article_box = new PgComponentType('pge-article-box', 'Article Box', {
+        //The code below adds an article box component to the "Library" panel. It also adds four controls - a checkbox, a select dropdown, a file picker, and a text box all using 'apply_class', for that component to the "Properties" panel. 
+        var pge_article_box = new PgComponentType('article-box', 'Article Box', {
             selector: '.pge-article-box',
             code: '<article class="pge-article-box">\
             <img src="' + getPlaceholderImage() + '" alt="">\
@@ -147,14 +154,14 @@ $(function () {
                 }
             }
         });
-        //pge_article_box.addPrefix(framework_id);
+        pge_article_box.addPrefix(framework_id);
         framework.addComponentType(pge_article_box);
 
         //Create an instance of a button maker for our toggle colors
         var bm = new PgToggleButtonMaker();
 
-        //Create a toggle control with two color controls
-        var pge_toggle = new PgComponentType('pge_toggle', 'Toggle', {
+        //Create a toggle control with two custom button color controls and utilizing 'element_attribute'
+        var pge_animated_toggle = new PgComponentType('animated-toggle', 'Toggle', {
             selector: '.toggle-wrapper',
             code: '<div class="toggle-wrapper" unchecked-color="red" checked-color="green">\
                 <div class="pge-toggle">\
@@ -217,8 +224,8 @@ $(function () {
                 }
             }
         });
-        //pge_toggle.addPrefix(framework_id);
-        framework.addComponentType(pge_toggle);
+        pge_animated_toggle.addPrefix(framework_id);
+        framework.addComponentType(pge_animated_toggle);
 
         //This code creates the "PG Example Elements" section in the "Library" panel. It then populates that panel with the two components created above.
         var pge_article_section = new PgFrameworkLibSection('pgearticle-section', 'PG Example Elements');
