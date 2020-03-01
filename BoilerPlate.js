@@ -66,15 +66,15 @@ $(function () {
         //The code below adds an article box component to the "Library" panel. It also adds four controls - a checkbox, a select dropdown, a file picker, and a text box all using 'apply_class', for that component to the "Properties" panel. 
         var article_box = new PgComponentType('article-box', 'Article Box', {
             selector: '.pge-article-box',
-            code: '<article class="pge-article-box">\
-            <img src="' + pinegrow.getPlaceholderImage() + '" alt="">\
-            <div class="pge-article-body">\
-            <h3 class="pge-article-title">Title</h3>\
-            <p class="pge-article-meta">Written by <a href="#" class="author">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>\
-            <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>\
-            <button>Read More</button>\
-            </div>\
-        </article>',
+            code: `<article class="pge-article-box">
+            <img src="' + pinegrow.getPlaceholderImage() + '" alt="">
+            <div class="pge-article-body">
+            <h3 class="pge-article-title">Title</h3>
+            <p class="pge-article-meta">Written by <a href="#" class="author">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>
+            <p class="pge-article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+            <button>Read More</button>
+            </div>
+        </article>`,
             sections: {
                 checkbox_options: {
                     name: 'Article Options',
@@ -158,12 +158,12 @@ $(function () {
         //Create a toggle control with two custom button color controls and utilizing 'element_attribute'
         var animated_toggle = new PgComponentType('animated-toggle', 'Toggle', {
             selector: '.toggle-wrapper',
-            code: '<div class="toggle-wrapper" unchecked-color="red" checked-color="green">\
-                <div class="pge-toggle">\
-                    <input id="pge-toggle" type="checkbox"/>\
-                    <label class="toggle-item" for="pge-toggle"></label>\
-                </div>\
-            </div>',
+            code: `<div class="toggle-wrapper" unchecked-color="red" checked-color="green">
+                <div class="pge-toggle">
+                    <input id="pge-toggle" type="checkbox"/>
+                    <label class="toggle-item" for="pge-toggle"></label>
+                </div>
+            </div>`,
             sections: {
                 toggle_options: {
                     name: 'Toggle Options',
