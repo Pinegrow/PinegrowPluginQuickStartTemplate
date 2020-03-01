@@ -4,7 +4,7 @@ $(function () {
         //Add a framework prefix - if you plan on having multiple versions, this should be the same for each version
         let type_prefix = 'PinegrowExample';
         //Add a framework id, it should be unique to this framework and version
-        let framework_id = 'pge';
+        let framework_id = 'my_plugin_id';
         //Add a framework name
         var framework = new PgFramework(framework_id, 'Pinegrow-Example');
 
@@ -37,21 +37,16 @@ $(function () {
         //uncomment the line below for debugging - opens devtools on Pinegrow Launch
         //require('nw.gui').Window.get().showDevTools();
 
-        //Image helper
-        var getPlaceholderImage = function () {
-            return pinegrow.getPlaceholderImage();
-        };
-
         //The code below adds a control to target all text contained within a <p> tag.
-        //note that the new component name is pre-fixed, but the id is not
-        var pge_paragraph_options = new PgComponentType('paragraph_options', '', {
+        //note that we don't prefix the id, section ids and field ids because we'll do that with the .addPrefix function below.
+        var paragraph_options = new PgComponentType('paragraph_options', '', {
             selector: 'p',
             sections: {
-                pge_p_options: {
+                p_options: {
                     name: '<p> Options',
                     default_open: false,
                     fields: {
-                        pge_p_caps: {
+                        p_caps: {
                             type: 'checkbox',
                             name: 'Make paragraphs all caps?',
                             action: 'apply_class',
@@ -63,16 +58,16 @@ $(function () {
         });
         
         //prefixes component id, fields, and sections names
-        pge_paragraph_options.addPrefix(framework_id);
+        paragraph_options.addPrefix(framework_id);
 
         //adds component to framework
-        framework.addComponentType(pge_paragraph_options);
+        framework.addComponentType(paragraph_options);
 
         //The code below adds an article box component to the "Library" panel. It also adds four controls - a checkbox, a select dropdown, a file picker, and a text box all using 'apply_class', for that component to the "Properties" panel. 
-        var pge_article_box = new PgComponentType('article-box', 'Article Box', {
+        var article_box = new PgComponentType('article-box', 'Article Box', {
             selector: '.pge-article-box',
             code: '<article class="pge-article-box">\
-            <img src="' + getPlaceholderImage() + '" alt="">\
+            <img src="' + pinegrow.getPlaceholderImage() + '" alt="">\
             <div class="pge-article-body">\
             <h3 class="pge-article-title">Title</h3>\
             <p class="pge-article-meta">Written by <a href="#" class="author">Super User</a> on 12 April 2012. Posted in <a href="#">Blog</a></p>\
@@ -81,11 +76,11 @@ $(function () {
             </div>\
         </article>',
             sections: {
-                pge_checkbox_options: {
+                checkbox_options: {
                     name: 'Article Options',
                     default_open: true,
                     fields: {
-                        pge_title_dropcap: {
+                        title_dropcap: {
                             type: 'checkbox',
                             name: 'Add dropcap to title?',
                             action: 'apply_class',
@@ -93,11 +88,11 @@ $(function () {
                         },
                     }
                 },
-                pge_select_options: {
+                select_options: {
                     name: 'Meta options',
                     fefault_open: true,
                     fields: {
-                        pge_meta_style: {
+                        meta_style: {
                             type: 'select',
                             name: 'Select meta style',
                             action: 'apply_class',
@@ -118,11 +113,11 @@ $(function () {
                         },
                     }
                 },
-                pge_file_options: {
+                file_options: {
                     name: 'Article Image Options',
                     default_open: false,
                     fields: {
-                        pge_picture_options: {
+                        picture_options: {
                             type: 'image',
                             file_picker: true,
                             name: 'Article image',
@@ -136,7 +131,7 @@ $(function () {
                                 return value;
                             }
                         },
-                        pge_alt_options: {
+                        alt_options: {
                             type: 'text',
                             live_update: false,
                             name: 'Image alt text',
@@ -154,14 +149,14 @@ $(function () {
                 }
             }
         });
-        pge_article_box.addPrefix(framework_id);
-        framework.addComponentType(pge_article_box);
+        article_box.addPrefix(framework_id);
+        framework.addComponentType(article_box);
 
         //Create an instance of a button maker for our toggle colors
         var bm = new PgToggleButtonMaker();
 
         //Create a toggle control with two custom button color controls and utilizing 'element_attribute'
-        var pge_animated_toggle = new PgComponentType('animated-toggle', 'Toggle', {
+        var animated_toggle = new PgComponentType('animated-toggle', 'Toggle', {
             selector: '.toggle-wrapper',
             code: '<div class="toggle-wrapper" unchecked-color="red" checked-color="green">\
                 <div class="pge-toggle">\
@@ -170,11 +165,11 @@ $(function () {
                 </div>\
             </div>',
             sections: {
-                pge_toggle_options: {
+                toggle_options: {
                     name: 'Toggle Options',
                     default_open: true,
                     fields: {
-                        pge_toggle_unchecked_color: {
+                        toggle_unchecked_color: {
                             type: 'select',
                             name: 'Unchecked color?',
                             action: 'element_attribute',
@@ -197,7 +192,7 @@ $(function () {
                                 }
                             ]
                         },
-                        pge_toggle_checked_color: {
+                        toggle_checked_color: {
                             type: 'select',
                             name: 'Checked color?',
                             action: 'element_attribute',
@@ -224,12 +219,12 @@ $(function () {
                 }
             }
         });
-        pge_animated_toggle.addPrefix(framework_id);
-        framework.addComponentType(pge_animated_toggle);
+        animated_toggle.addPrefix(framework_id);
+        framework.addComponentType(animated_toggle);
 
         //This code creates the "PG Example Elements" section in the "Library" panel. It then populates that panel with the two components created above.
-        var pge_article_section = new PgFrameworkLibSection('pgearticle-section', 'PG Example Elements');
-        pge_article_section.setComponentTypes([pge_article_box, pge_toggle]);
-        framework.addLibSection(pge_article_section);
+        var article_section = new PgFrameworkLibSection('pgearticle-section', 'PG Example Elements');
+        pge_article_section.setComponentTypes([article_box, toggle]);
+        framework.addLibSection(article_section);
     });
 });
