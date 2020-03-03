@@ -1,16 +1,16 @@
 $(function () {
     $('body').one('pinegrow-ready', function (e, pinegrow) {
-
-        //Add a framework prefix - if you plan on having multiple versions, this should be the same for each version
-        let type_prefix = 'PinegrowExample';
-        //Add a framework id, it should be unique to this framework and version
+        
+        //Add a framework id, it should be unique to this framework and version. Best practice is to define the prefix as a variable that can be used throughout the framework.
         let framework_id = 'my_plugin_id';
-        //Add a framework name
+        
+        //Instantiate a new framework
         var framework = new PgFramework(framework_id, 'Pinegrow-Example');
 
-        framework.type = type_prefix;
+        // Define a framework type - if you plan on having multiple versions, this should be the same for each version. 
+        framework.type = 'PinegrowExample';
 
-        //Prevent the activation of multiple versions of the plugin - if this should be allowed, change to false
+        //Prevent the activation of multiple versions of the framework - if this should be allowed, change to false
         framework.allow_single_type = true;
 
         //Optional, add a badge to the framework list notify user of new or updated status
@@ -36,7 +36,7 @@ $(function () {
 
         //uncomment the line below for debugging - opens devtools on Pinegrow Launch
         //require('nw.gui').Window.get().showDevTools();
-
+        
         //The code below adds a control to target all text contained within a <p> tag.
         //note that we don't prefix the id, section ids and field ids because we'll do that with the .addPrefix function below.
         var paragraph_options = new PgComponentType('paragraph_options', '', {
@@ -223,8 +223,8 @@ $(function () {
         framework.addComponentType(animated_toggle);
 
         //This code creates the "PG Example Elements" section in the "Library" panel. It then populates that panel with the two components created above.
-        var article_section = new PgFrameworkLibSection('pgearticle-section', 'PG Example Elements');
-        pge_article_section.setComponentTypes([article_box, toggle]);
-        framework.addLibSection(article_section);
+        var pge_article_section = new PgFrameworkLibSection('article-section', 'PG Example Elements');
+        pge_article_section.setComponentTypes([article_box, animated_toggle]);
+        framework.addLibSection(pge_article_section);
     });
 });
